@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+/* Smooth toggle color switch */
+.custom-toggle {
+    border-color: transparent;
+    transition: background-color 0.5s ease, border-color 0.5s ease;
+}
+
+/* Optional: Improve switch circle contrast */
+.custom-toggle:checked {
+    background-color: #dc3545;
+    /* Bootstrap red */
+    border-color: #dc3545;
+}
+
+.custom-toggle:not(:checked) {
+    background-color: #28a745;
+    /* Bootstrap green */
+    border-color: #28a745;
+}
