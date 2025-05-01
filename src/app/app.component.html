@@ -1,21 +1,33 @@
+<!-- 
 <nav class="navbar navbar-light bg-light px-3 rounded shadow-sm mb-4">
-  <span class="navbar-brand mb-0 h4">{{ isVegSelected ? 'Non-Veg Menu' : 'Veg Menu' }}</span>
+  <span class="navbar-brand mb-0 h4">
+    {{ selectedCategory === 'nonveg' ? 'Non-Veg Menu' : selectedCategory === 'veg' ? 'Veg Menu' : 'Drinks Menu' }}
+  </span>
 
-  <div class="form-check form-switch d-flex align-items-center gap-2">
-    <input class="form-check-input togglebtn" type="checkbox" id="toggleSwitch" [(ngModel)]="isVegSelected"
-      [ngClass]="isVegSelected ? 'bg-danger' : 'bg-success'" style="cursor: pointer;" />
-    <div class="form-check-label text-center" for="toggleSwitch" style="width: 70px;">
-      {{ isVegSelected ? 'Non-Veg' : 'Veg' }}
-    </div>
-  </div>
+  <select [(ngModel)]="selectedCategory" class="form-select w-auto" style="cursor: pointer;">
+    <option value="veg">Veg</option>
+    <option value="nonveg">Non-Veg</option>
+    <option value="drinks">Drinks</option>
+  </select>
+</nav> -->
+
+
+<nav class="navbar navbar-light bg-light px-3 rounded shadow-sm mb-4 sticky-top mt-0" style="z-index: 10;">
+  <span class="navbar-brand mb-0 h4">
+    {{ selectedCategory === 'nonveg' ? 'Non-Veg Menu' : selectedCategory === 'veg' ? 'Veg Menu' : 'Drinks Menu' }}
+  </span>
+
+  <select [(ngModel)]="selectedCategory" class="form-select w-auto" style="cursor: pointer;">
+    <option value="veg">Veg</option>
+    <option value="nonveg">Non-Veg</option>
+    <option value="drinks">Drinks</option>
+  </select>
 </nav>
 
 
 
-
-
-
-<div class="container my-3 " *ngIf="isVegSelected">
+<!-- Non-Veg Menu -->
+<div class="container my-3" *ngIf="selectedCategory === 'nonveg'">
   <div class="row row-cols-2 g-3">
     <div class="col" *ngFor="let item of menuItems">
       <div class="card h-100">
@@ -30,7 +42,8 @@
   </div>
 </div>
 
-<div class="container my-3" *ngIf="!isVegSelected">
+<!-- Veg Menu -->
+<div class="container my-3" *ngIf="selectedCategory === 'veg'">
   <div class="row row-cols-2 g-3">
     <div class="col" *ngFor="let item of vegMenuitem">
       <div class="card h-100">
@@ -39,6 +52,22 @@
           <h6 class="card-title mb-1">{{item.vegdishname}}</h6>
           <p class="card-text text-muted small mb-1">{{item.description}}</p>
           <p class="mb-0"><strong>₹{{item.priceFull}}</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Drinks Menu -->
+<div class="container my-3" *ngIf="selectedCategory === 'drinks'">
+  <div class="row row-cols-2 g-3">
+    <div class="col" *ngFor="let item of Drinks">
+      <div class="card h-100">
+        <img [src]="BaseuRL + item.image" class="card-img-top" alt="{{item.name}}">
+        <div class="card-body p-2">
+          <h6 class="card-title mb-1">{{item.name}}</h6>
+          <p class="card-text text-muted small mb-1">{{item.description}}</p>
+          <p class="mb-0"><strong>₹{{item.price}}</strong></p>
         </div>
       </div>
     </div>

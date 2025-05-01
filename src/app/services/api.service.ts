@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  private baseUrl = 'http://localhost:5000';
+  private baseUrl = 'https://qrbackend-5.onrender.com';
 
   constructor(private http: HttpClient) { }
 

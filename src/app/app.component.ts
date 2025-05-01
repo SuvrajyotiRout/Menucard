@@ -25,6 +25,14 @@ interface VegMenuItem {
   updatedAt?: string;
 }
 
+interface DrinkingItem {
+  _id: string,
+  name: string,
+  price: number,
+  description: string,
+  image: string
+}
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -33,39 +41,37 @@ interface VegMenuItem {
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-
-
-
-  BaseuRL: String = "http://localhost:5000/uploads/"
+  BaseuRL: String = "https://qrbackend-5.onrender.com/uploads/";
   menuItems: NonMenuItem[] = [];
   vegMenuitem: VegMenuItem[] = [];
-  isVegSelected: boolean = true;
+  Drinks: DrinkingItem[] = [];
+
+  selectedCategory: string = 'veg'; // default selected menu
+
   constructor(private apiService: ApiService) { }
+
   ngOnInit(): void {
-    this.fetchmenu()
+    this.fetchmenu();
   }
+
   fetchmenu() {
     this.apiService.Getmenu().subscribe({
       next: (response) => {
         if (response?.success) {
           this.menuItems = response.menu.nonVegMenu;
-          console.log("Fetched Menu", this.menuItems);
           this.vegMenuitem = response.menu.vegMenu;
-          console.log("VegMenu", this.vegMenuitem);
-
+          this.Drinks = response.menu.drinksMenu;
         } else {
           console.log("No menu Found");
-
         }
-      }, error: (error) => {
+      },
+      error: (error) => {
         console.error("Error fetching products:", error);
       },
       complete: () => {
         console.log("Fetch API call completed.");
       }
-    })
+    });
   }
-
-
-
 }
+
