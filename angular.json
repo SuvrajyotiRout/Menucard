@@ -101,6 +101,14 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/menu-card/",
+            "netlifyToken": "y",
+            "siteId": "y"
+          }
         }
       }
     }
