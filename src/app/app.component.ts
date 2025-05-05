@@ -101,6 +101,7 @@ export class AppComponent implements OnInit {
         this.vegMenuitem = response.menu.vegMenu;
         this.Drinks = response.menu.drinksMenu;
 
+
         // Fetch based on selectedCategory
         this.updateMenuItems();
       } else {
@@ -115,15 +116,23 @@ export class AppComponent implements OnInit {
     switch (this.selectedCategory) {
       case 'nonveg':
         this.menuItems = this.menuItems;
+        console.log(this.menuItems);
+
         break;
       case 'veg':
         this.vegMenuitem = this.vegMenuitem;
+        console.log(this.vegMenuitem);
+
         break;
       case 'drinks':
         this.Drinks = this.Drinks;
+        console.log(this.Drinks);
+
         break;
       default:
         this.menuItems = this.menuItems;
+        console.log(this.menuItems, "Default");
+
         break;
     }
   }
