@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 // import { RouterOutlet } from '@angular/router';
 import { ApiService } from './services/api.service';
 import { FormsModule } from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
 
 interface NonMenuItem {
   _id: string;
@@ -50,28 +51,45 @@ export class AppComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit(): void {
-    this.fetchmenu();
+  // ngOnInit(): void {
+  //   this.fetchmenu();
+  // }
+
+  // fetchmenu() {
+  //   this.apiService.Getmenu().subscribe({
+  //     next: (response) => {
+  //       if (response?.success) {
+  //         this.menuItems = response.menu.nonVegMenu;
+  //         this.vegMenuitem = response.menu.vegMenu;
+  //         this.Drinks = response.menu.drinksMenu;
+  //       } else {
+  //         console.log("No menu Found");
+  //       }
+  //     },
+  //     error: (error) => {
+  //       console.error("Error fetching products:", error);
+  //     },
+  //     complete: () => {
+  //       console.log("Fetch API call completed.");
+  //     }
+  //   });
+  // }
+
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const response = await firstValueFrom(this.apiService.Getmenu());
+      if (response?.success) {
+        this.menuItems = response.menu.nonVegMenu;
+        this.vegMenuitem = response.menu.vegMenu;
+        this.Drinks = response.menu.drinksMenu;
+      } else {
+        console.log("No menu Found");
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   }
 
-  fetchmenu() {
-    this.apiService.Getmenu().subscribe({
-      next: (response) => {
-        if (response?.success) {
-          this.menuItems = response.menu.nonVegMenu;
-          this.vegMenuitem = response.menu.vegMenu;
-          this.Drinks = response.menu.drinksMenu;
-        } else {
-          console.log("No menu Found");
-        }
-      },
-      error: (error) => {
-        console.error("Error fetching products:", error);
-      },
-      complete: () => {
-        console.log("Fetch API call completed.");
-      }
-    });
-  }
 }
 
