@@ -51,29 +51,29 @@ export class AppComponent implements OnInit {
 
   constructor(private apiService: ApiService) { }
 
-  ngOnInit(): void {
-    this.fetchmenu();
-  }
+  // ngOnInit(): void {
+  //   this.fetchmenu();
+  // }
 
-  fetchmenu() {
-    this.apiService.Getmenu().subscribe({
-      next: (response) => {
-        if (response?.success) {
-          this.menuItems = response.menu.nonVegMenu;
-          this.vegMenuitem = response.menu.vegMenu;
-          this.Drinks = response.menu.drinksMenu;
-        } else {
-          console.log("No menu Found");
-        }
-      },
-      error: (error) => {
-        console.error("Error fetching products:", error);
-      },
-      complete: () => {
-        console.log("Fetch API call completed.");
-      }
-    });
-  }
+  // fetchmenu() {
+  //   this.apiService.Getmenu().subscribe({
+  //     next: (response) => {
+  //       if (response?.success) {
+  //         this.menuItems = response.menu.nonVegMenu;
+  //         this.vegMenuitem = response.menu.vegMenu;
+  //         this.Drinks = response.menu.drinksMenu;
+  //       } else {
+  //         console.log("No menu Found");
+  //       }
+  //     },
+  //     error: (error) => {
+  //       console.error("Error fetching products:", error);
+  //     },
+  //     complete: () => {
+  //       console.log("Fetch API call completed.");
+  //     }
+  //   });
+  // }
 
 
   // async ngOnInit(): Promise<void> {
@@ -90,6 +90,44 @@ export class AppComponent implements OnInit {
   //     console.error("Error fetching products:", error);
   //   }
   // }
+
+
+
+  async ngOnInit(): Promise<void> {
+    try {
+      const response = await firstValueFrom(this.apiService.Getmenu());
+      if (response?.success) {
+        this.menuItems = response.menu.nonVegMenu;
+        this.vegMenuitem = response.menu.vegMenu;
+        this.Drinks = response.menu.drinksMenu;
+
+        // Fetch based on selectedCategory
+        this.updateMenuItems();
+      } else {
+        console.log("No menu Found");
+      }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  }
+
+  updateMenuItems() {
+    switch (this.selectedCategory) {
+      case 'nonveg':
+        this.menuItems = this.menuItems;
+        break;
+      case 'veg':
+        this.vegMenuitem = this.vegMenuitem;
+        break;
+      case 'drinks':
+        this.Drinks = this.Drinks;
+        break;
+      default:
+        this.menuItems = this.menuItems;
+        break;
+    }
+  }
+
 
 }
 
