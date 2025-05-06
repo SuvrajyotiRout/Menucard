@@ -1,3 +1,7 @@
+[build]
+  command = "ng build"
+  publish = "dist/MenuCard/browser"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
