@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/MenuCard",
+            "outputPath": "dist/menu-card",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -44,6 +44,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -105,7 +111,7 @@
         "deploy": {
           "builder": "@netlify-builder/deploy:deploy",
           "options": {
-            "outputPath": "dist/MenuCard/browser",
+            "outputPath": "dist/menu-card/browser",
             "netlifyToken": "y",
             "siteId": "y"
           }

@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from './services/api.service';
 import { FormsModule } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-
+import { environment } from '../environments/environment';
 interface NonMenuItem {
   _id: string;
   nonvegdishname: string;
@@ -42,7 +42,7 @@ interface DrinkingItem {
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  BaseuRL: String = "https://qrbackend-5.onrender.com/uploads/";
+  BaseuRL: String = `${environment.apiUrl}/uploads/`;
   menuItems: NonMenuItem[] = [];
   vegMenuitem: VegMenuItem[] = [];
   Drinks: DrinkingItem[] = [];
